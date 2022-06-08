@@ -1,7 +1,7 @@
 The general navbar for our project
 <template>
 	<div class="nav-wrapper">
-		<div class="nav-items">
+		<div class="nav-items m-d-flex m-flex-content-center">
 			<router-link
 				class="nav-item"
 				to="/"
@@ -65,105 +65,105 @@ import store from "@/store/store.js"
 export default {
 	name: "NavBar",
 	computed:
-	{
-		/**
-		 * @returns {string} - Users first name if loaded; Else empty string
-		 */
-		firstName ()
 		{
-			return store.state.user.user.firstName || ""
-		},
+			/**
+			 * @returns {string} - Users first name if loaded; Else empty string
+			 */
+			firstName ()
+			{
+				return store.state.user.user.firstName || ""
+			},
 
-		/**
-		 * @returns {boolean} - Show certain only things while under development
-		 */
-		isDev ()
-		{
-			return parseFloat(process.env.VUE_APP_CI)
-		},
+			/**
+			 * @returns {boolean} - Show certain only things while under development
+			 */
+			isDev ()
+			{
+				return parseFloat(process.env.VUE_APP_CI)
+			},
 
-		/**
-		 * @returns {boolean} - Whether the app is initializing the user or not
-		 */
-		isLoadingData ()
-		{
-			return store.state.user.isLoggingIn
-		},
+			/**
+			 * @returns {boolean} - Whether the app is initializing the user or not
+			 */
+			isLoadingData ()
+			{
+				return store.state.user.isLoggingIn
+			},
 
-		/**
-		 * @returns {boolean} - Whether a user is logged in or not
-		 */
-		isLoggedIn ()
-		{
-			return store.state.user.isLoggedIn
-		},
+			/**
+			 * @returns {boolean} - Whether a user is logged in or not
+			 */
+			isLoggedIn ()
+			{
+				return store.state.user.isLoggedIn
+			},
 
-		/**
-		 * @returns {string} - Users last name if loaded; Else empty string
-		 */
-		lastName ()
-		{
-			return store.state.user.user.lastName || ""
-		},
+			/**
+			 * @returns {string} - Users last name if loaded; Else empty string
+			 */
+			lastName ()
+			{
+				return store.state.user.user.lastName || ""
+			},
 
-		/**
-		 * @returns {string} - Users initials to be displayed; Else dash
-		 */
-		userInitials ()
-		{
-			const first = this.firstName.length ? this.firstName[0].toUpperCase() : ""
-			const last = this.lastName.length ? this.lastName[0].toUpperCase() : ""
-			return (first + last) || "-"
+			/**
+			 * @returns {string} - Users initials to be displayed; Else dash
+			 */
+			userInitials ()
+			{
+				const first = this.firstName.length ? this.firstName[0].toUpperCase() : ""
+				const last = this.lastName.length ? this.lastName[0].toUpperCase() : ""
+				return (first + last) || "-"
+			},
 		},
-	},
 	methods:
-	{
-		/**
-		 * Logout the current user and remove the user session
-		 *
-		 * @returns {void}
-		 */
-		async logout ()
 		{
-			try
+			/**
+			 * Logout the current user and remove the user session
+			 *
+			 * @returns {void}
+			 */
+			async logout ()
 			{
-				await firebase.auth().signOut()
-			}
-			catch (error)
-			{
-				console.error(
-					error
-				)
-			}
-			store.dispatch("logoutUser")
+				try
+				{
+					await firebase.auth().signOut()
+				}
+				catch (error)
+				{
+					console.error(
+						error
+					)
+				}
+				store.dispatch("logoutUser")
+			},
 		},
-	},
 }
 </script>
 
 <style lang="less">
 /* @todo setup a main file and set margins/padding there probably */
+@import "~styles/styles.less";
+
+@v-padding: 30px;
+
 .nav-wrapper {
-	@v-padding: 30px;
-	align-content: center;
-	align-items: center;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	padding: 10px;
-	padding-bottom: @v-padding;
-	padding-top: @v-padding;
-	position: relative;
-	width: 100%;
-
 	.nav-items {
-		flex-grow: 1;
-
 		.nav-item {
-			margin: 5px;
+			padding: 1rem;
+			display: inline-block;
+
+			font-weight: bold;
+			color: #2c3e50;
+			transition: 0.2s ease-in-out;
+
+			&.router-link-exact-active, &:hover {
+				color: #42b983;
+				background: @color-pastel-blue-focus;
+			}
 		}
 	}
+
 	.user-items {
 		border: 1px solid black;
 		border-radius: 50px;
@@ -175,26 +175,20 @@ export default {
 		&.options-guest {
 			border: none;
 		}
+
 		.user-item {
-			margin: 3px;
-			margin-left: 6px;
-			margin-right: 6px;
+			margin: 3px 6px;
 		}
 
 		.user-action {
 			border-top: 1px solid black;
 			margin-bottom: 5px;
 		}
+
 		.user-name {
 			margin-top: 5px;
 		}
 	}
 }
-a {
-	font-weight: bold;
-	color: #2c3e50;
-}
-a.router-link-exact-active {
-	color: #42b983;
-}
+
 </style>

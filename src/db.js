@@ -1,5 +1,6 @@
 import firebase from "firebase/app"
 import "firebase/firestore"
+
 const firebaseConfig = {
 	apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
 	appId: process.env.VUE_APP_FIREBASE_APP_ID,
@@ -15,14 +16,19 @@ export const db = firebase
 	.initializeApp(firebaseConfig)
 	.firestore()
 
+if (location.hostname === "localhost")
+{
+	db.useEmulator("localhost", 9090)
+}
+
 // Export types that exists in Firestore
 // This is not always necessary, but it's used in other examples
-const { TimeStamp, GeoPoint, } = firebase.firestore
+const {TimeStamp, GeoPoint,} = firebase.firestore
 export {
-	TimeStamp, GeoPoint 
+	TimeStamp, GeoPoint
 }
 
 // if using Firebase JS SDK < 5.8.0
 db.settings({
-	timestampsInSnapshots: true, 
+	timestampsInSnapshots: true,
 })

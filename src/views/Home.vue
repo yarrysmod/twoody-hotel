@@ -1,6 +1,6 @@
 <template>
 	<div class="home-wrapper">
-		<AvailabilitySearch />
+		<AvailabilitySearch/>
 	</div>
 </template>
 
@@ -10,18 +10,11 @@ import AvailabilitySearch from "@/components/forms/AvailabilitySearch.vue"
 export default {
 	name: "Home",
 	components:
-	{
-		AvailabilitySearch,
-	},
+		{
+			AvailabilitySearch,
+		},
 	created: function()
 	{
 	},
 }
 </script>
-
-<style scoped lang="less">
-.home-wrapper {
-	overflow: scroll;
-	width: 100%;
-}
-</style>

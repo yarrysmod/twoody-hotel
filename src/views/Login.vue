@@ -1,15 +1,14 @@
 <template>
 	<div class="page-wrapper">
+		<h1>Login</h1>
 		<div v-if="isLoggedIn">
 			<h3>Already Logged in</h3>
 			<p>
-				Logging in a second time is weird. Please contine or logout.
+				Logging in a second time is weird. Please continue or logout.
 			</p>
 		</div>
 		<div v-if="!isLoggedIn">
-			<h3>Sign In</h3>
-
-			<div class="login-form">
+			<div class="login-form m-d-flex m-flex-column m-flex-align-center">
 				<input
 					v-model="email"
 					class="login-item"
@@ -27,7 +26,7 @@
 				</button>
 			</div>
 
-			<SocialLogin />
+			<SocialLogin/>
 		</div>
 	</div>
 </template>
@@ -40,9 +39,9 @@ import store from "@/store/store.js"
 export default {
 	name: "Login",
 	components:
-	{
-		SocialLogin,
-	},
+		{
+			SocialLogin,
+		},
 
 	props: {},
 	data: function()
@@ -55,75 +54,71 @@ export default {
 	},
 
 	computed:
-	{
-		/**
-		 * @returns {boolean} - Whether a user is logged in or not
-		 * @since 0.1.0
-		 */
-		isLoggedIn ()
 		{
-			return store.state.user.isLoggedIn
-		},
-
-		/**
-		 * @todo Setup a spinner in template when user is logging in
-		 * @returns {boolean} - Whether a user is logging in or not
-		 * @since 0.1.0
-		 */
-		isLoggingIn ()
-		{
-			return store.state.user.isLoggingIn
-		},
-	},
-	methods: 
-	{
-		/**
-		 * Use firebase to support logging in with any email account
-		 *
-		 * @todo https://firebase.google.com/docs/auth/web/email-link-auth?authuser=0#web-version-9_1
-		 *			Use link to provide signup with email
-		 * @returns {void}
-		 * @since 0.1.0
-		 */
-		async login ()
-		{
-			try
+			/**
+			 * @returns {boolean} - Whether a user is logged in or not
+			 * @since 0.1.0
+			 */
+			isLoggedIn ()
 			{
-				const response = await firebase.auth().signInWithEmailAndPassword(
-					this.email,
-					this.password
-				)
-				console.log("logged in!")
-				console.log(response)
-				return response
-			}
-			catch (error)
-			{
-				// TODO: Show error state/message in template
-				console.group()
-				console.error(this.$options.name)
-				console.error(
-					error
-				)
-				console.groupEnd()
-			}
-		},
+				return store.state.user.isLoggedIn
+			},
 
-	},
+			/**
+			 * @todo Setup a spinner in template when user is logging in
+			 * @returns {boolean} - Whether a user is logging in or not
+			 * @since 0.1.0
+			 */
+			isLoggingIn ()
+			{
+				return store.state.user.isLoggingIn
+			},
+		},
+	methods:
+		{
+			/**
+			 * Use firebase to support logging in with any email account
+			 *
+			 * @todo https://firebase.google.com/docs/auth/web/email-link-auth?authuser=0#web-version-9_1
+			 *			Use link to provide signup with email
+			 * @returns {void}
+			 * @since 0.1.0
+			 */
+			async login ()
+			{
+				try
+				{
+					const response = await firebase.auth().signInWithEmailAndPassword(
+						this.email,
+						this.password
+					)
+					console.log("logged in!")
+					console.log(response)
+					return response
+				}
+				catch (error)
+				{
+					// TODO: Show error state/message in template
+					console.group()
+					console.error(this.$options.name)
+					console.error(
+						error
+					)
+					console.groupEnd()
+				}
+			},
+
+		},
 }
 </script>
 
 <style scoped lang="less">
 .page-wrapper {
-	display: relative;
-	padding: 10px;
+	position: relative;
+
 	.login-form {
-		display: flex;
-		flex-direction: column;
-		height: auto;
 		margin-bottom: 20px;
 		position: relative;
-		width: 100%;
 
 		.login-item {
 			margin-bottom: 10px;
@@ -134,19 +129,22 @@ export default {
 			margin-top: 10px;
 		}
 	}
+
 	.social-button {
 		width: 75px;
 		background: white;
 		padding: 10px;
 		border-radius: 100%;
-		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0,2);
+		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0, 2);
 		outline: 0;
 		border: 0;
 	}
+
 	.social-button:active {
-		display: relative;
+		position: relative;
 		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 	}
+
 	.social-button img {
 		width: 100%;
 	}

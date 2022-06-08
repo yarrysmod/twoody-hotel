@@ -13,24 +13,25 @@
 			<p>
 				Betsy and Tanner met in Iowa, married in New York, and live in Portland.
 				They have three pets:
-				<ol>
-					<li>
-						Bro'Dee
-					</li>
-					<li>
-						Ruby
-					</li>
-					<li>
-						Kouldbie
-					</li>
-				</ol>
 			</p>
+			<ol>
+				<li>
+					Bro'Dee
+				</li>
+				<li>
+					Ruby
+				</li>
+				<li>
+					Kouldbie
+				</li>
+			</ol>
+
 		</div>
 		<div class="about-section">
 			<!-- TODO: Componentize -->
 			<!-- TODO: Fix div centering on md -->
 			<h2>Outreach</h2>
-			<div class="statistics-section">
+			<div class="statistics-section m-text-center">
 				<div class="statistic">
 					<div class="description">
 						Human Connections
@@ -64,7 +65,7 @@
 export default {
 	name: "About",
 	components:
-	{},
+		{},
 	created: function()
 	{
 	},
@@ -78,15 +79,12 @@ export default {
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	padding-bottom: 50px;
-	margin-left: 20px;
-	margin-right: 20px;
-	width: 100%;
 
 	h1 {
-		flex-grow:1;
+		flex-grow: 1;
 		width: 100%;
 	}
+
 	.about-section {
 		max-width: 500px;
 		width: 100%;
@@ -95,6 +93,7 @@ export default {
 			text-align: left;
 			width: 100%;
 		}
+
 		.statistics-section {
 			align-items: center;
 			align-content: center;
@@ -119,6 +118,7 @@ export default {
 					height: 50px;
 					width: 100%;
 				}
+
 				.value {
 					border-top: 1px solid;
 				}

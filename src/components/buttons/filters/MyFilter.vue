@@ -22,6 +22,7 @@ export default {
 
 <style scoped lang="less">
 @import "~styles/styles";
+
 .filter-wrapper {
 	background: @color-pastel-blue;
 	border: 1px solid @myblack;
@@ -31,15 +32,13 @@ export default {
 	flex-shrink: 0;
 	font-family: monospace;
 	margin: 5px;
-	padding: 3px;
-	padding-left: 7px;
-	padding-right: 7px;
-	min-width: 69px;
+	padding: 3px 7px;
 	transition: all 0.2s ease;
 
 	&.active {
 		filter: brightness(110%);
 	}
+
 	&.inactive {
 		filter: brightness(90%);
 	}
@@ -54,6 +53,7 @@ export default {
 		transform: scale(1.07);
 	}
 }
+
 .filter-wrapper:active {
 	box-shadow: 3px -2px 3px 0px rgb(0 0 0 / 50%);
 	border: 1px solid @color-pastel-blue;;

@@ -54,9 +54,9 @@ import MapFilters from "components/buttons/filters/MapFilters"
 export default {
 	name: "Maps",
 	components:
-	{
-		MapFilters,
-	},
+		{
+			MapFilters,
+		},
 
 	props: {},
 	data: function()
@@ -69,87 +69,95 @@ export default {
 	},
 
 	computed:
-	{
-		/**
-		 * @todo Figure out data structure for showing all of the different maps
-		 * @returns {object} Some form of data structure with the goods we need
-		 */
-		mapCards () 
 		{
-			return {}
-		},
-
-		shownActivies () 
-		{
-			let shown = {}
-			let index = 0
-			let keys = Object.keys(this.activites)
-
-			if (this.activeFilters.length)
+			/**
+			 * @todo Figure out data structure for showing all of the different maps
+			 * @returns {object} Some form of data structure with the goods we need
+			 */
+			mapCards ()
 			{
-				for (let i = 0; i < keys.length; i += 1)
+				return {}
+			},
+
+			shownActivies ()
+			{
+				let shown = {}
+				let index = 0
+				let keys = Object.keys(this.activites)
+
+				if (this.activeFilters.length)
 				{
-					let activity = this.activites[keys[i]]
-					let filters = activity.tags
-					let isShowing = true
-					if (this.activeFilters && !filters.length)
+					for (let i = 0; i < keys.length; i += 1)
 					{
-						isShowing = false
-					}
-					else if (this.activeFilters.length && filters.length)
-					{
-						for (let j = 0; j < this.activeFilters.length; j += 1)
+						let activity = this.activites[keys[i]]
+						let filters = activity.tags
+						let isShowing = true
+						if (this.activeFilters && !filters.length)
 						{
-							console.log(this.activeFilters[j])
-							if (!filters.includes(this.activeFilters[j].id))
+							isShowing = false
+						}
+						else if (this.activeFilters.length && filters.length)
+						{
+							for (let j = 0; j < this.activeFilters.length; j += 1)
 							{
-								isShowing = false
-								break
+								console.log(this.activeFilters[j])
+								if (!filters.includes(this.activeFilters[j].id))
+								{
+									isShowing = false
+									break
+								}
 							}
 						}
+						if (isShowing)
+						{
+							shown[index] = activity
+							index += 1
+						}
 					}
-					if (isShowing)
-					{
-						shown[index] = activity
-						index += 1
-					}
+					return shown
 				}
-				return shown
-			}
-			else
+				else
+				{
+					// If no filters are selected, show everything
+					return this.activites
+				}
+			},
+		},
+	methods:
+		{
+			/**
+			 *
+
+			 @param {object} activity - Object of all the info
+			 * @returns {string} - A title if exists, else dash
+			 * @param activity
+			 * @param activity
+			 */
+			formatTitle (activity)
 			{
-				// If no filters are selected, show everything
-				return this.activites
-			}
-		},
-	},
-	methods: 
-	{
-		/**
-		 * @param {object} activity - Object of all the info
-		 * @returns {string} - A title if exists, else dash
-		 */
-		formatTitle (activity) 
-		{
-			let ret = activity.title || "-"
-			return ret
-		},
+				let ret = activity.title || "-"
+				return ret
+			},
 
-		/**
-		 * @param {string} id - Poorly names object s.t. id is string and not int
-		 */
-		gotoItem (id) 
-		{
-			this.$router.push({
-				path: `maps/${id}`, 
-			})
-		},
+			/**
+			 *
 
-		updateFilters (newFilters) 
-		{
-			this.activeFilters = newFilters
+			 @param {string} id - Poorly names object s.t. id is string and not int
+			 * @param id
+			 * @param id
+			 */
+			gotoItem (id)
+			{
+				this.$router.push({
+					path: `maps/${id}`,
+				})
+			},
+
+			updateFilters (newFilters)
+			{
+				this.activeFilters = newFilters
+			},
 		},
-	},
 }
 </script>
 
@@ -159,13 +167,9 @@ export default {
 @wmax: 288px;
 @wtotal: clamp(140px, 25vw, @wmax);
 @star: 35px;
-@title: calc(@wtotal - @star); 
+@title: calc(@wtotal - @star);
 
 .maps-page-wrapper {
-	height: auto;
-	padding: 10px;
-	width: 100%;
-
 	.maps-content {
 		align-content: center;
 		align-items: center;
@@ -216,18 +220,21 @@ export default {
 						white-space: nowrap;
 						width: @title;
 					}
+
 					.favorites-star {
 						flex-basis: @star;
 						padding-right: calc(1vw / 6);
 						transition: all 0.2s linear;
 						width: @star;
 					}
+
 					.favorites-star:active {
 						stroke: gold;
 						stroke-width: 50px;
 						transform: scale(1.27);
 					}
 				}
+
 				.map-card-subtitle {
 					font-style: italic;
 					font-size: max(1.3vw, 12px);
@@ -240,6 +247,7 @@ export default {
 					width: @wtotal;
 				}
 			}
+
 			.map-card-map {
 				align-content: center;
 				align-items: center;
@@ -259,6 +267,7 @@ export default {
 					height: auto;
 				}
 			}
+
 			// TODO: Coexist with image
 			.map-card-button {
 				//align-self: center;
@@ -274,6 +283,7 @@ export default {
 				//width: clamp(140px, 30vw, 220px);
 				width: 100%;
 			}
+
 			.map-card-button:active {
 				transform: scale(1.07);
 			}
@@ -284,15 +294,16 @@ export default {
 
 @media (hover: hover) {
 	.map-card:hover {
-		box-shadow:
-			inset 0 -3vw 3vw rgba(0, 0, 0, 0.1),
-			0 0  0 3px @color-purple,
-			0.3em 0.3em 1em rgba(2, 1, 2, 0.3);
+		box-shadow: inset 0 -3vw 3vw rgba(0, 0, 0, 0.1),
+		0 0 0 3px @color-purple,
+		0.3em 0.3em 1em rgba(2, 1, 2, 0.3);
 	}
-  .map-card-button:hover{
+
+	.map-card-button:hover {
 		cursor: pointer;
 		transform: scale(1.07);
-  }
+	}
+
 	.favorites-star:hover {
 		cursor: pointer;
 		stroke: gold;

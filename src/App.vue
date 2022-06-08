@@ -1,39 +1,38 @@
 <template>
-	<div id="app">
+	<div id="app" class="m-d-flex m-flex-column m-h-100">
 		<!-- TODO: Tie into vue comps -->
 		<AppSection
 			:isShowing="$store.state.layout.isShowingBanner"
 			@click="$store.commit('setIsShowingBanner', false)"
 		>
-			<div id="top-banner" />
+			<div id="top-banner"/>
 		</AppSection>
 
 		<!-- Handle appSection click for navbar on chevron and ations instead.. -->
 		<AppSection
 			class="nav-section"
-			:isCollapsed="true"
 			is-showing
 		>
-			<NavBar id="nav-wrapper" />
+			<NavBar/>
 		</AppSection>
 
 		<AppSection
 			centered
-			class="main-section"
+			class="main-section m-flex-grow m-p-2"
 			is-showing
 		>
 			<transition
 				name="fade"
 				mode="out-in"
 			>
-				<router-view id="content-wrapper" />
+				<router-view id="content-wrapper"/>
 			</transition>
 		</AppSection>
 		<AppSection
 			:isShowing="$store.state.layout.isShowingFooter"
 			@click="$store.commit('setIsShowingFooter', false)"
 		>
-			<div id="bottom-banner" />
+			<div id="bottom-banner"/>
 		</AppSection>
 	</div>
 </template>
@@ -45,10 +44,10 @@ import NavBar from "components/nav/NavBar"
 export default {
 	name: "App",
 	components:
-	{
-		AppSection,
-		NavBar,
-	},
+		{
+			AppSection,
+			NavBar,
+		},
 	data: function()
 	{
 		return {
@@ -56,7 +55,7 @@ export default {
 		}
 	},
 	computed:
-	{},
+		{},
 	created: function()
 	{
 	},
@@ -65,6 +64,7 @@ export default {
 
 <style lang='less'>
 @import "~styles/styles";
+@import "~styles/modifiers";
 @import (css) url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
 html, body {
@@ -72,63 +72,50 @@ html, body {
 	margin: 0;
 	padding: 0;
 	width: 100%;
+
+	background-color: @color-primary-triadic-1;
+	color: @myblack;
 }
 
 #app {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: @color-primary-triadic-1;
-	color: @myblack;
-	display: flex;
-	flex-direction: column;
 	//font-family: Avenir, Helvetica, Arial, sans-serif;
 	font-family: 'Poppins', sans-serif;
-	height: 100%;
-	max-height: 100%;
-	min-height: 100%;
-	text-align: center;
-	width: 100%;
-
 }
+
 #bottom-banner {
 	background-color: @color-primary-triadic-3;
 	bottom: 0;
 	height: 50px;
-	width: 100%;
 }
+
 #content-wrapper {
 	background-color: @color-primary-triadic-1;
-	overflow: scroll;
 }
 
 .main-section {
 	flex: 1;
-	max-height: 4000px !important;
-}
-.nav-section {
-	min-height: 70px;
 }
 
-#nav-wrapper {
+.nav-section {
 	background-color: @color-primary-triadic-2;
 }
 
 #top-banner {
 	background-color: @color-primary-triadic-3;
 	height: 50px;
-	padding: 0;
-	margin: 0;
-	width: 100%;
 }
+
 .fade-enter-active,
 .fade-leave-active {
-  transition-duration: 0.2s;
-  transition-property: opacity;
-  transition-timing-function: ease;
+	transition-duration: 0.2s;
+	transition-property: opacity;
+	transition-timing-function: ease;
 }
 
 .fade-enter,
 .fade-leave-active {
-  opacity: 0
+	opacity: 0
 }
 </style>
